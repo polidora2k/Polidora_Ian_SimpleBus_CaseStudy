@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sign Up</title>
+    
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
+    <link rel="shortcut icon" href="../../images/favicon.ico">
+    
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-OERcA2EqjJCMA+/3y+gxIOqMEjwtxJY7qPCqsdltbNJuaOe923+mo//f6V8Qbsw3"
+        crossorigin="anonymous"></script>
+</head>
+
+<body>
+    <div class="d-flex vh-100 flex-column">
+        <!-- NAVIGATION BAR -->
+        <nav class="navbar navbar-expand-lg navbar-dark bg-dark sticky-top">
+            <div class="container-fluid">
+                <a href="../jsp/index.jsp" class="navbar-brand">
+                    <img src="../../images/bus.jpg" alt="logo" width="100">
+                    <span>SimpleBus</span>
+                </a>
+                <button type="button" class="navbar-toggler" data-bs-toggle="collapse" data-bs-target="#navbarCollapse">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarCollapse">
+                    <div class="navbar-nav">
+                        <a href="../jsp/index.jsp" class="nav-item nav-link active">Home</a>
+                        <a href="#" class="nav-item nav-link">Profile</a>
+                        <a href="#" class="nav-item nav-link">Messages</a>
+                        <a href="#" class="nav-item nav-link disabled" tabindex="-1">Reports</a>
+                    </div>
+                </div>
+            </div>
+        </nav>
+
+        <!-- SIGN UP FORM -->
+        <form class="border align-self-center shadow rounded p-3 my-auto bg-light needs-validation"
+            style="width: 500px;" action="signup.html" method="get" novalidate>
+            <h1 class="text-center mb-5 mt-3">Sign Up</h1>
+            <div class="container">
+                <div class="row mb-4">
+                    <div class="btn-group" name="user-type" role="group" aria-label="User Type Select">
+                        <input type="radio" class="btn-check" name="user-type" id="parent" autocomplete="off" checked>
+                        <label class="btn btn-outline-warning" for="parent">Parent</label>
+
+                        <input type="radio" class="btn-check" name="user-type" id="driver" autocomplete="off">
+                        <label class="btn btn-outline-warning" for="driver">Driver</label>
+                    </div>
+                </div>
+                <div class="row mb-4 mt-5">
+                    <div class="col-md-6 mb-3">
+                        <label for="firstName" class="form-label">First Name</label>
+                        <input type="text" name="firstName" class="form-control" id="firstName" required>
+                        <div class="invalid-feedback">
+                            Please provide your first name.
+                        </div>
+                    </div>
+                    <div class="col-md-6 mb-3">
+                        <label for="lastName" class="form-label">Last Name</label>
+                        <input type="text" name="lastName" class="form-control" id="lastName" required>
+                        <div class="invalid-feedback">
+                            Please provide your last name.
+                        </div>
+                    </div>
+                    <div class="col-12 mb-3 has-validation">
+                        <label for="email" class="form-label">Email</label>
+                        <input type="email" name="email" class="form-control" id="email" required>
+                        <div class="invalid-feedback">
+                            Please enter a valid email.
+                        </div>
+                    </div>
+                    <div class="col-12 mb-3">
+                        <label for="password" class="form-label">Password</label>
+                        <input type="password" name="password" class="form-control" id="password" required>
+                    </div>
+                    <div class="col-12">
+                        <label for="confirmPassword" class="form-label">Confirm Password</label>
+                        <input type="password" name="confirmPassword" class="form-control" id="confirmPassword"
+                            required>
+                    </div>
+                    <div class="col-12 my-4 text-center">
+                        <button type="submit" class="btn btn-warning px-4">Sign Up</button>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+</body>
+
+</html>
