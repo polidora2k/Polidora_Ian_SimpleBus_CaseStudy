@@ -11,7 +11,7 @@ import lombok.extern.slf4j.Slf4j;
 @Controller
 public class IndexController {
 
-	@RequestMapping(value = { "/", "/index", "/index.html" }, method = RequestMethod.GET)
+	@RequestMapping(value = { "/", "/index", "/index.jsp" }, method = RequestMethod.GET)
 	public ModelAndView slash() {
 		ModelAndView response = new ModelAndView();
 		response.setViewName("index");

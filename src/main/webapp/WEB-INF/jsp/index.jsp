@@ -1,46 +1,30 @@
-<!DOCTYPE html>
-<html lang="en">
-
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Welcome</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet"
-        integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
-    <link rel="stylesheet" href="styles/main.css" type="text/css">
-    <link rel="shortcut icon" href="images/favicon.ico">
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js"
-        integrity="sha384-OERcA2EqjJCMA+/3y+gxIOqMEjwtxJY7qPCqsdltbNJuaOe923+mo//f6V8Qbsw3"
-        crossorigin="anonymous"></script>
-</head>
-
+<jsp:include page="include/header.jsp"/>
 <body>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js"
-        integrity="sha384-OERcA2EqjJCMA+/3y+gxIOqMEjwtxJY7qPCqsdltbNJuaOe923+mo//f6V8Qbsw3"
-        crossorigin="anonymous"></script>
-    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-        <div class="container-fluid">
-            <a href="index.html" class="navbar-brand">
-                <img src="images/bus.jpg" alt="logo" width="100">
-                <span>SimpleBus</span>
-            </a>
-            <button type="button" class="navbar-toggler" data-bs-toggle="collapse" data-bs-target="#navbarCollapse">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse" id="navbarCollapse">
-                <div class="navbar-nav">
-                    <a href="index.html" class="nav-item nav-link active">Home</a>
-                    <a href="#" class="nav-item nav-link">Profile</a>
-                    <a href="#" class="nav-item nav-link">Messages</a>
-                    <a href="#" class="nav-item nav-link disabled" tabindex="-1">Reports</a>
-                </div>
-                <div class="navbar-nav ms-auto">
-                    <a href="views/login.html" class="nav-item nav-link">Login/Sign Up</a>
-                </div>
+  <div class="d-flex vh-100 flex-column" style="overflow: hidden; position: relative;">
+      <img src="../../../images/bus-bg.jpg" alt="" style="opacity: 0.6;
+      position: absolute;
+      left: 0;
+      top: 0;
+      width: 100%;
+      height: auto;">
+    <jsp:include page="include/navbar.jsp"/>
+      <div class="border align-self-center shadow rounded p-3 my-auto bg-light container w-50" style="position: relative;">
+        <h1 class="text-center mb-5 mt-3">Welcome to SimpleBus!</h1>
+        <p class="text-center">
+            SimpleBus is an easy to use software for both parents and drivers to easily manage bus routes and students. 
+            Parents are abke to track buses to ensure that their child arrives safely at home. Drivers can also optimize their 
+            by knowing what students will be riding each day. Simplify the school bus experience today by signing up or logging
+            in below!
+        </p>
+        <div class="row mt-5 mb-4">
+            <div class="col text-end">
+                <a class="btn btn-warning w-50" href="login.jsp" role="button">Login</a>
+            </div>
+            <div class="col text-start">
+                <a class="btn btn-warning w-50" href="/signup" role="button">Sign Up</a>
             </div>
         </div>
-    </nav>
-</body>
-
+      </div>
+    </div>
+  </body>
 </html>

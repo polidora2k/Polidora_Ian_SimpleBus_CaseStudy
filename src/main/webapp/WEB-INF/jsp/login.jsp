@@ -48,10 +48,10 @@
                 <div class="row mb-4">
                     <div class="btn-group" name="user-type" role="group" aria-label="User Type Select">
                         <input type="radio" class="btn-check" name="user-type" id="parent" autocomplete="off" checked>
-                        <label class="btn btn-outline-warning" for="btnradio1">Parent</label>
+                        <label class="btn btn-outline-warning" for="parent">Parent</label>
 
                         <input type="radio" class="btn-check" name="user-type" id="driver" autocomplete="off">
-                        <label class="btn btn-outline-warning" for="btnradio2">Driver</label>
+                        <label class="btn btn-outline-warning" for="driver">Driver</label>
                     </div>
                 </div>
                 <div class="row">
