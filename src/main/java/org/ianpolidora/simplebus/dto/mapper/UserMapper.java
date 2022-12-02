@@ -1,41 +1,34 @@
 package org.ianpolidora.simplebus.dto.mapper;
 
-import org.ianpolidora.simplebus.database.dao.RoleDAO;
-import org.ianpolidora.simplebus.database.entity.Role;
 import org.ianpolidora.simplebus.database.entity.User;
+import org.ianpolidora.simplebus.dto.UserCreationDTO;
 import org.ianpolidora.simplebus.dto.UserDTO;
+import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 @Component
 public class UserMapper {
+
 	@Autowired
-	private RoleDAO roleDAO;
-	
-	public UserDTO toUserDTO(User user) {
-		UserDTO userDTO = new UserDTO();
-		
-		userDTO.setEmail(user.getEmail());
-		userDTO.setFirstName(user.getFirstName());
-		userDTO.setLastName(user.getLastName());
-		userDTO.setPassword(user.getPassword());
-		userDTO.setRole(user.getRole().getName());
-		
-		return userDTO;
+	private ModelMapper mapper;
+
+	public UserCreationDTO toUserCreationDTO(User user) {
+		return mapper.map(user, UserCreationDTO.class);
 	}
-	
+
+	public User toUser(UserCreationDTO userCreationDTO) {
+
+		return mapper.map(userCreationDTO, User.class);
+	}
+
 	public User toUser(UserDTO userDTO) {
-		User user = new User();
-		
-		user.setEmail(userDTO.getEmail());
-		user.setFirstName(userDTO.getFirstName());
-		user.setLastName(userDTO.getLastName());
-		user.setPassword(userDTO.getPassword());
-		
-		Role role = roleDAO.findByName(userDTO.getRole());
-		
-		user.setRole(role);
-		
-		return user;
+
+		return mapper.map(userDTO, User.class);
 	}
+
+	public UserDTO toUserDTO(User user) {
+		return mapper.map(user, UserDTO.class);
+	}
+
 }

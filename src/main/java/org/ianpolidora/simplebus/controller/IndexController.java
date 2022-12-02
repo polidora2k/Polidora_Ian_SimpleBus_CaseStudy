@@ -1,6 +1,7 @@
 package org.ianpolidora.simplebus.controller;
 
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
@@ -17,6 +18,13 @@ public class IndexController {
 		response.setViewName("index");
 		log.debug("Successfully showing page");
 		
+		return response;
+	}
+	
+	@GetMapping("/dashboard")
+	public ModelAndView dash() {
+		ModelAndView response = new ModelAndView();
+		response.setViewName("parent_dashboard");
 		return response;
 	}
 }
