@@ -21,13 +21,16 @@ import lombok.ToString;
 @ToString
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)
 @Entity
-@Table(name = "roles")
-public class Role {
+@Table(name = "user_roles")
+public class UserRole {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@EqualsAndHashCode.Include
 	private Integer id;
 	
-	@Column(name = "name", unique = true)
-	private String name;
+	@Column(name = "user_id")
+	private Integer userId;
+	
+	@Column(name = "role_name")
+	private String roleName;
 }
