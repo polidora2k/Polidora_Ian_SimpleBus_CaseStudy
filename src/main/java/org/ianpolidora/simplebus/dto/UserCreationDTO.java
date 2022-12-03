@@ -38,7 +38,7 @@ public class UserCreationDTO {
 	private String email;
 	
 	@NotEmpty(message = "Password is required")
-	@Pattern(regexp = "^(?=.*[a-zA-Z])(?=.*\\d)(?=.*[@#$&%!])[a-zA-Z\\d@#$&%!]{8,16}", message = "Password must be atleast 8 characters with one uppercase letter, one lowercase letter, a number, and one of the following special characters: @, #, $, &, %, !.")
+	//@Pattern(regexp = "^(?=.*[a-zA-Z])(?=.*\\d)(?=.*[@#$&%!])[a-zA-Z\\d@#$&%!]{8,16}", message = "Password must be atleast 8 characters with one uppercase letter, one lowercase letter, a number, and one of the following special characters: @, #, $, &, %, !.")
 	private String password;
 	
 	private String confirmPassword;

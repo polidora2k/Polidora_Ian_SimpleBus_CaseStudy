@@ -41,6 +41,12 @@ public class UserController {
 		ModelAndView response = new ModelAndView();
 
 		response.addObject("form", userCreationDTO);
+		
+		for (ObjectError e : result.getAllErrors()) {
+			if (e instanceof FieldError) {
+				log.debug(((FieldError) e).getField() + ": " + e.getDefaultMessage());
+			}
+		}
 
 		if (!result.hasErrors()) {
 			userService.signup(userCreationDTO);
@@ -51,7 +57,7 @@ public class UserController {
 				response.setViewName("redirect:/parent");
 				break;
 			case "Driver":
-				response.setViewName("driver_dashboard");
+				response.setViewName("redirect:/driver");
 				break;
 			default:
 				break;
@@ -63,6 +69,8 @@ public class UserController {
 					response.addObject(((FieldError) e).getField() + "Message", e.getDefaultMessage());
 				}
 			}
+			
+			response.setViewName("signup");
 		}
 
 		return response;
