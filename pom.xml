@@ -71,6 +71,13 @@
 			<version>3.1.0</version>
 		</dependency>
 
+		<!-- MAPS -->
+		<dependency>
+			<groupId>com.google.maps</groupId>
+			<artifactId>google-maps-services</artifactId>
+			<version>2.1.2</version>
+		</dependency>
+
 		<!-- SECURITY -->
 		<dependency>
 			<groupId>org.springframework.boot</groupId>

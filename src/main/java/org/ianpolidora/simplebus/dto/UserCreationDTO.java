@@ -2,7 +2,6 @@ package org.ianpolidora.simplebus.dto;
 
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotEmpty;
-import javax.validation.constraints.Pattern;
 
 import org.hibernate.validator.constraints.Length;
 import org.ianpolidora.simplebus.validation.EmailUnique;
@@ -20,7 +19,7 @@ import lombok.ToString;
 @NoArgsConstructor
 @AllArgsConstructor
 @ToString
-@EqualsAndHashCode(onlyExplicitlyIncluded = true)
+@EqualsAndHashCode
 @PasswordsMatch(message = "Passwords must match.")
 public class UserCreationDTO {
 	private String role;

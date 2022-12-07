@@ -33,6 +33,18 @@ public class Student {
 
 	@Column(name = "last_name")
 	private String lastName;
+	
+	@Column(name = "street_address")
+	private String streetAddress;
+	
+	@Column(name = "city")
+	private String city;
+	
+	@Column(name = "state")
+	private String state;
+	
+	@Column(name = "zipcode")
+	private String zipcode;
 
 	@Column(name = "parent_id")
 	private Integer parentId;
