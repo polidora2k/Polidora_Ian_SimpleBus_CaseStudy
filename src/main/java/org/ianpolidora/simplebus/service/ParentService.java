@@ -22,6 +22,9 @@ public class ParentService {
 	@Autowired
 	private StudentDAO studentDAO;
 	
+	@Autowired
+	private StudentService studentService;
+	
 	public StudentDTO addStudent(StudentCreationDTO studentCreationDTO, Integer parentId) {
 		Student newStudent = studentMapper.toStudent(studentCreationDTO);
 		log.debug("addStudent in service");
@@ -38,5 +41,13 @@ public class ParentService {
 		List<Student> students = studentDAO.findByParentId(parentId);
 		
 		return students.stream().map(s -> studentMapper.toStudentDTO(s)).collect(Collectors.toList());
+	}
+	
+	public List<StudentDTO> getRidingStudents(Integer parentId){
+		List<Student> students = studentDAO.findRidingStudentsForParent(parentId);
+		List<StudentDTO> studentDTOs = students.stream().map(s -> studentMapper.toStudentDTO(s)).collect(Collectors.toList());
+		
+		studentDTOs.forEach(s -> s.setStatus(studentService.getStudentStatus(s)));
+		return studentDTOs;
 	}
 }

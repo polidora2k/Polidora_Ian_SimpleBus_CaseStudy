@@ -13,6 +13,7 @@
     crossorigin="anonymous"></script>
   <script src="https://code.jquery.com/jquery-3.6.1.js" integrity="sha256-3zlB5s2uwoUzrXK3BT7AX3FyvojsraNFxCc2vC/7pNI="
     crossorigin="anonymous"></script>
+  <script src="https://kit.fontawesome.com/4414e1f719.js" crossorigin="anonymous"></script>
 
   <link rel="shortcut icon" href="/images/favicon.ico">
   <link rel="stylesheet" href="/styles/main.css" type="text/css" />

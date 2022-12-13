@@ -1,7 +1,5 @@
 package org.ianpolidora.simplebus.controller;
 
-import java.io.IOException;
-
 import javax.validation.Valid;
 
 import org.ianpolidora.simplebus.dto.StudentCreationDTO;
@@ -17,12 +15,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
 import com.google.maps.GeoApiContext;
-import com.google.maps.GeocodingApi;
-import com.google.maps.errors.ApiException;
-import com.google.maps.model.GeocodingResult;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -31,13 +24,13 @@ import lombok.extern.slf4j.Slf4j;
 public class ParentController {
 
 	@Autowired
-	AuthenticatedUserService aus;
+	private AuthenticatedUserService aus;
 
 	@Autowired
-	ParentService parentService;
+	private ParentService parentService;
 	
 	@Autowired
-	GeoApiContext context;
+	private GeoApiContext context;
 
 	@GetMapping("/parent")
 	public ModelAndView showParentPage() {
@@ -46,34 +39,35 @@ public class ParentController {
 		response.setViewName("parent_dashboard");
 
 		response.addObject("students", parentService.getAllStudents(aus.getCurrentUser().getId()));
+		response.addObject("ridingStudents", parentService.getRidingStudents(aus.getCurrentUser().getId()));
 
 		response.addObject("user", currentUser);
 
-		log.debug(context.toString());
-		GeocodingResult[] results;
-		try {
-			results = GeocodingApi.geocode(context, "1600 Amphitheatre Parkway Mountain View, CA 94043").await();
-			for (GeocodingResult gr : results) {
-				log.debug(gr.toString());
-			}
-		} catch (ApiException e) {
-			e.printStackTrace();
-			log.debug(e.getMessage());
-			results = new GeocodingResult[1];
-		} catch (InterruptedException e) {
-			e.printStackTrace();
-			log.debug(e.getMessage());
-			results = new GeocodingResult[1];
-		} catch (IOException e) {
-			e.printStackTrace();
-			log.debug(e.getMessage());
-			results = new GeocodingResult[1];
-		}
-		Gson gson = new GsonBuilder().setPrettyPrinting().create();
-		log.debug("gson: " + gson.toJson(results[0].geometry.location));
-
-		// Invoke .shutdown() after your application is done making requests
-		context.shutdown();
+//		log.debug(context.toString());
+//		GeocodingResult[] results;
+//		try {
+//			results = GeocodingApi.geocode(context, "1600 Amphitheatre Parkway Mountain View, CA 94043").await();
+//			for (GeocodingResult gr : results) {
+//				log.debug(gr.toString());
+//			}
+//		} catch (ApiException e) {
+//			e.printStackTrace();
+//			log.debug(e.getMessage());
+//			results = new GeocodingResult[1];
+//		} catch (InterruptedException e) {
+//			e.printStackTrace();
+//			log.debug(e.getMessage());
+//			results = new GeocodingResult[1];
+//		} catch (IOException e) {
+//			e.printStackTrace();
+//			log.debug(e.getMessage());
+//			results = new GeocodingResult[1];
+//		}
+//		Gson gson = new GsonBuilder().setPrettyPrinting().create();
+//		log.debug("gson: " + gson.toJson(results[0].geometry.location));
+//
+//		// Invoke .shutdown() after your application is done making requests
+//		context.shutdown();
 
 		return response;
 	}

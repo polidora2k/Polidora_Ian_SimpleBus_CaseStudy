@@ -12,7 +12,7 @@
       <div class="collapse navbar-collapse" id="navbarCollapse">
         <sec:authorize access="isAuthenticated()">
           <div class="navbar-nav">
-            <a href="/parent" class="nav-item nav-link">Dashboard</a>
+            <a href="/driver" class="nav-item nav-link">Dashboard</a>
             <a href="/students" class="nav-item nav-link">Students</a>
             <a href="#" class="nav-item nav-link disabled" tabindex="-1">Reports</a>
           </div>

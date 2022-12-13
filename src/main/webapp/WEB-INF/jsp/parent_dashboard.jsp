@@ -17,57 +17,112 @@
               <div class="card">
                 <div class="card-body">
                   <h5 class="card-title">Students Riding Today</h5>
-                  <div class="accordion" id="accordionExample">
-                    <div class="accordion-item">
-                      <h2 class="accordion-header" id="headingTwo">
-                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
-                          data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
-                          Accordion Item #2
-                        </button>
-                      </h2>
-                      <div id="collapseTwo" class="accordion-collapse collapse" aria-labelledby="headingTwo"
-                        data-bs-parent="#accordionExample">
-                        <div class="accordion-body">
-                          <strong>This is the second item's accordion body.</strong> It is hidden by default, until the
-                          collapse plugin adds the appropriate classes that we use to style each element. These classes
-                          control the overall appearance, as well as the showing and hiding via CSS transitions. You can
-                          modify any of this with custom CSS or overriding our default variables. It's also worth noting
-                          that just about any HTML can go within the <code>.accordion-body</code>, though the transition
-                          does limit overflow.
-                        </div>
+                  <div class="accordion" id="ridingStudentsAccordion">
+                    <c:if test="${empty ridingStudents}">
+                      No students riding today
+                    </c:if>
+                    <c:if test="${not empty ridingStudents}">
+                      <div class="list-group mx-3 my-3">
+                        <c:forEach items="${ridingStudents}" var="ridingStudent">
+                          <div class="accordion-item">
+                            <h2 class="accordion-header" id="heading${ridingStudent.id}">
+                              <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                                data-bs-target="#collapse${ridingStudent.id}" aria-expanded="false"
+                                aria-controls="collapse${ridingStudent.id}">
+                                ${ridingStudent.firstName} ${ridingStudent.lastName}
+                              </button>
+                            </h2>
+                            <div id="collapse${ridingStudent.id}" class="accordion-collapse collapse"
+                              aria-labelledby="heading${ridingStudent.id}" data-bs-parent="#ridingStudentsAccordion">
+                              <div class="accordion-body container">
+                                <div class="row mt-3">
+                                  <div class="col text-center">
+                                    <c:if test="${ridingStudent.status.arrived}">
+                                      <h2 class="text-success">${ridingStudent.firstName} is Home!</h2>
+                                    </c:if>
+                                    <c:if test="${not ridingStudent.status.arrived}">
+                                      <div class="row">
+                                        <div class="col">
+                                          <h2 class="text-warning">Last Stop Passed:</h2>
+                                        </div>
+                                      </div>
+                                      <div class="row">
+                                        <div class="col stop-info">
+                                          ${ridingStudent.status.currentStop.name}
+                                        </div>
+                                      </div>
+                                      <div class="row">
+                                        <div class="col stop-info">
+                                          ${ridingStudent.status.currentStop.streetAddress}
+                                        </div>
+                                      </div>
+                                      <div class="row">
+                                        <div class="col stop-info">
+                                          ${ridingStudent.status.currentStop.city},
+                                          ${ridingStudent.status.currentStop.state}
+                                          ${ridingStudent.status.currentStop.zipcode}
+                                        </div>
+                                      </div>
+                                    </c:if>
+                                  </div>
+                                </div>
+                              
+                              <div class="progress w-100 my-4" style=>
+                                <c:if test="${ridingStudent.status.arrived}">
+                                  <div class="progress-bar bg-success progress-bar-striped" role="progressbar"
+                                    aria-label="routeStatus" style="width: 100%" aria-valuenow="100" aria-valuemin="0"
+                                    aria-valuemax="100"></div>
+                                </c:if>
+                                <c:if test="${not ridingStudent.status.arrived}">
+                                  <div class="progress-bar bg-warning progress-bar-striped progress-bar-animated"
+                                    role="progressbar" aria-label="routeStatus"
+                                    style="width: ${ridingStudent.status.percent}%;" aria-valuenow="ridingStudent.status.percent" aria-valuemin="0"
+                                    aria-valuemax="100"></div>
+                                </c:if>
+                              </div>
+                              <div class="row text-end">
+                                <a href="/parent/student/${ridingStudent.id}" class="link-secondary">More Info ></a>
+                              </div>
+                            </div>
+                          </div>
                       </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div class="col-4">
-              <div class="card">
-                <div class="card-body container text-center">
-                  <div class="row">
-                    <div class="col">
-                      <h5 class="card-title fs-4">All Students</h5>
-                    </div>
-                    <div class="col">
-                      <a class="btn btn-warning" href="/parent/addstudent">+ Add Student</a>
-                    </div>
-                  </div>
-                  <c:if test="${empty students}">
-                    No students currently registered
-                  </c:if>
-                  <c:if test="${not empty students}">
-                    <div class="list-group mx-3 my-3">
-                      <c:forEach items="${students}" var="student">
-                        <a href="#" class="list-group-item list-group-item-action text-start">${student.firstName}
-                          ${student.lastName}</a>
                       </c:forEach>
-                    </div>
+                  </div>
                   </c:if>
                 </div>
               </div>
             </div>
           </div>
+          <div class="col-4">
+            <div class="card">
+              <div class="card-body container text-center">
+                <div class="row">
+                  <div class="col">
+                    <h5 class="card-title fs-4">All Students</h5>
+                  </div>
+                  <div class="col">
+                    <a class="btn btn-warning" href="/parent/addstudent">+ Add Student</a>
+                  </div>
+                </div>
+                <c:if test="${empty students}">
+                  No students currently registered
+                </c:if>
+                <c:if test="${not empty students}">
+                  <div class="list-group mx-3 my-3">
+                    <c:forEach items="${students}" var="student">
+                      <a href="/parent/student/${student.id}"
+                        class="list-group-item list-group-item-action text-start">${student.firstName}
+                        ${student.lastName}</a>
+                    </c:forEach>
+                  </div>
+                </c:if>
+              </div>
+            </div>
+          </div>
         </div>
+      </div>
 
       </div>
     </body>
+
+    </html>

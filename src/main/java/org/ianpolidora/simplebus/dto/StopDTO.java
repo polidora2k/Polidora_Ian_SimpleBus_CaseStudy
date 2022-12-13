@@ -11,16 +11,14 @@ import lombok.ToString;
 @NoArgsConstructor
 @ToString
 @EqualsAndHashCode
-public class StudentDTO {
+public class StopDTO {
 	private Integer id;
-	private String firstName;
-	private String lastName;
+	private String name;
 	private String streetAddress;
 	private String city;
 	private String state;
 	private String zipcode;
-	private Integer parentId;
-	private Boolean riding;
-	private Integer stopId;
-	private StudentStatusDTO status;
+	private String status;
+	private Integer routeId;
+	private Integer routeStopNumber;
 }

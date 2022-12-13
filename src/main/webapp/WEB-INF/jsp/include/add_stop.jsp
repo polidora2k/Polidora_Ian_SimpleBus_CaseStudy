@@ -1,43 +1,31 @@
-<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
-  <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-
-    <title>Add Student</title>
-
-    <jsp:include page="include/header.jsp" />
-
-    <body style="font-family: FredokaOne; background-color: #EFF3F3;">
-        <div class="d-flex vh-100 flex-column">
-            <!-- NAVIGATION BAR -->
-            <jsp:include page="include/navbar.jsp" />
-
-            <!-- SIGN UP FORM -->
-            <div class="border align-self-center shadow rounded p-3 my-auto bg-light ">
-                <form class="needs-validation" style="width: 500px;" action="/parent/addstudent" method="POST" novalidate>
-                    <h1 class="text-left mb-4 mt-3 ms-3">Add New Student</h1>
+<!-- SIGN UP FORM -->
+<div class="modal fade text-start" id="addStopModal" tabindex="-1" aria-labelledby="addStopModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5" id="addStopModalLabel">Add New Stop</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form class="needs-validation" style="width: 500px;" action="/admin/addstop" method="POST">
                     <div class="container">
                         <div class="row mt-3">
                             <div class="col">
-                                <label for="firstName" class="form-label">First Name<span class="text-danger">*</span></label>
+                                <label for="stopName" class="form-label">Stop Name<span
+                                        class="text-danger">*</span></label>
                                 <div class="has-validation">
-                                    <input type="text" name="firstName" class="form-control" id="firstName"
-                                        value="${form.firstName}" required />
+                                    <input type="text" name="stopName" class="form-control" id="stopName"
+                                        value="${form.stopName}" required />
                                     <div class="text-danger">
-                                        ${firstNameMessage}
+                                        ${stopNameMessage}
                                     </div>
-                                </div>
-                            </div>
-                            <div class="col">
-                                <label for="lastName" class="form-label">Last Name<span class="text-danger">*</span></label>
-                                <input type="text" name="lastName" class="form-control" id="lastName"
-                                    value="${form.lastName}" required />
-                                <div class="text-danger">
-                                    ${lastNameMessage}
                                 </div>
                             </div>
                         </div>
                         <div class="row mt-3">
                             <div class="col">
-                                <label for="streetAddress" class="form-label">Street Address<span class="text-danger">*</span></label>
+                                <label for="streetAddress" class="form-label">Street Address<span
+                                        class="text-danger">*</span></label>
                                 <input type="text" name="streetAddress" class="form-control" id="streetAddress"
                                     value="${form.streetAddress}" required />
                                 <div class="text-danger">
@@ -48,21 +36,22 @@
                         <div class="row mt-3">
                             <div class="col">
                                 <label for="city" class="form-label">City<span class="text-danger">*</span></label>
-                                <input type="text" name="city" class="form-control" id="city"
-                                    value="${form.city}" required />
+                                <input type="text" name="city" class="form-control" id="city" value="${form.city}"
+                                    required />
                                 <div class="text-danger">
                                     ${cityMessage}
                                 </div>
                             </div>
                             <div class="col">
                                 <label for="state" class="form-label">State<span class="text-danger">*</span></label>
-                                <jsp:include page="include/state_dropdown.jsp"></jsp:include>
+                                <jsp:include page="state_dropdown.jsp"></jsp:include>
                                 <div class="text-danger">
                                     ${stateMessage}
                                 </div>
                             </div>
                             <div class="col">
-                                <label for="zipcode" class="form-label">Zipcode<span class="text-danger">*</span></label>
+                                <label for="zipcode" class="form-label">Zipcode<span
+                                        class="text-danger">*</span></label>
                                 <input type="text" name="zipcode" pattern="[\d]*" class="form-control" id="zipcode"
                                     value="${form.zipcode}" maxlength="5" required />
                                 <div class="text-danger">
@@ -79,6 +68,6 @@
                 </form>
             </div>
         </div>
-    </body>
+    </div>
+</div>
 
-    </html>
