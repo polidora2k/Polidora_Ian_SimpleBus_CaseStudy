@@ -1,7 +1,5 @@
 package org.ianpolidora.simplebus.dto;
 
-import java.util.List;
-
 import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
@@ -15,9 +13,7 @@ import lombok.ToString;
 @AllArgsConstructor
 @ToString
 @EqualsAndHashCode
-public class RouteDTO {
-	private Integer id;
-	private String name;
-	private String status;
-	private Integer currentStopId;
+public class LocationDTO {
+	private Double latitude;
+	private Double longitude;
 }

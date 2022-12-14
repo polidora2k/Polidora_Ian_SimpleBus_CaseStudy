@@ -14,4 +14,8 @@ public interface StudentDAO extends JpaRepository<Student, Integer> {
 	
 	@Query("SELECT s FROM Student s WHERE s.parentId = :parentId AND s.riding = true")
 	public List<Student> findRidingStudentsForParent(Integer parentId);
+	
+	public List<Student> findByStopIdAndRiding(Integer stopId, Boolean riding);
+	
+	public Integer countByStopIdAndRiding(Integer stopId, Boolean riding);
 }

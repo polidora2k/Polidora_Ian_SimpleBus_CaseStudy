@@ -1,7 +1,9 @@
 package org.ianpolidora.simplebus.service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 import org.ianpolidora.simplebus.database.dao.StudentDAO;
 import org.ianpolidora.simplebus.database.entity.Student;
@@ -27,7 +29,7 @@ public class StudentService {
 
 	@Autowired
 	StopService stopService;
-	
+
 	@Autowired
 	private RouteService routeService;
 
@@ -47,32 +49,50 @@ public class StudentService {
 		StopDTO stop = stopService.getStop(student.getStopId());
 		RouteDTO route = routeService.getRoute(stop.getRouteId());
 
-		List<StopDTO> stops = route.getStops().subList(0, stop.getRouteStopNumber());
+		List<StopDTO> stops = stopService.getRouteStopsWithStudents(route.getId());
+		List<StopDTO> studentStops = stops.subList(0, stops.indexOf(stop) + 1);
 		StopDTO currentStop = stopService.getStop(route.getCurrentStopId());
 		status.setCurrentStop(currentStop);
 
-		if (stop.getId() == route.getCurrentStopId() || !stops.contains(currentStop)) {
+		if (stop.getId() == route.getCurrentStopId() || !studentStops.contains(currentStop)) {
 			status.setArrived(true);
 		} else {
 			status.setArrived(false);
 		}
 
-		Integer segment = 100 / stops.size();
+		Integer segment = 100 / studentStops.size();
 
-		Integer current = stops.indexOf(currentStop) + 1;
+		Integer current = studentStops.indexOf(currentStop) + 1;
 
 		status.setPercent((segment) * (current));
 
 		return status;
 	}
-	
+
 	public void changeRiding(Integer id, Boolean riding) {
 		Optional<Student> student = studentDAO.findById(id);
-		
-		if(student.isPresent()) {
+
+		if (student.isPresent()) {
 			Student s = student.get();
 			s.setRiding(riding);
 			studentDAO.save(s);
 		}
+	}
+
+	public List<StudentDTO> getStudentsByStop(StopDTO stop) {
+		List<Student> students = studentDAO.findByStopIdAndRiding(stop.getId(), true);
+		
+		return students.stream().map(s -> studentMapper.toStudentDTO(s)).collect(Collectors.toList());
+	}
+
+	public List<StudentDTO> getStudentsForRoute(RouteDTO route) {
+		List<StopDTO> stops = stopService.getRouteStops(route.getId());
+		List<StudentDTO> students = new ArrayList<StudentDTO>();
+
+		for (StopDTO s : stops) {
+			students.addAll(getStudentsByStop(s));
+		}
+		
+		return students;
 	}
 }

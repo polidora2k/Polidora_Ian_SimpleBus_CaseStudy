@@ -21,7 +21,7 @@ public class DriverService {
 	private DriverRouteDAO driverRouteDAO;
 
 	public List<RouteDTO> getRoutesForDriver(Integer driverId) {
-		List<DriverRoute> driverRoutes = driverRouteDAO.findByUserId(driverId);
+		List<DriverRoute> driverRoutes = driverRouteDAO.findInCompleteRoutesByDriver(driverId);
 		List<RouteDTO> routes = driverRoutes.stream().map(dr -> routeService.getRoute(dr.getUserId())).collect(Collectors.toList());
 
 		return routes;

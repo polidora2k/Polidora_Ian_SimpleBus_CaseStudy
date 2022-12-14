@@ -14,4 +14,6 @@ public interface StopDAO extends JpaRepository<Stop, Integer> {
 	public List<Stop> findByRouteIdOrderByRouteStopNumberAsc(Integer routeId);
 	
 	public List<Stop> findByRouteId(Integer routeId);
+	
+	public Optional<Stop> findByRouteIdAndRouteStopNumber(Integer routeId, Integer routeStopNumber);
 }

@@ -18,8 +18,6 @@ public class RouteMapper {
 	public RouteDTO toRouteDTO(Route route) {
 		RouteDTO routeDTO = mapper.map(route, RouteDTO.class);
 		
-		routeDTO.setStops(stopService.getRouteStops(routeDTO.getId()));
-		
 		return routeDTO;
 	}
 

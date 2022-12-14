@@ -1,7 +1,22 @@
 package org.ianpolidora.simplebus.dto;
 
+import java.util.List;
+
 import javax.validation.constraints.NotEmpty;
 
+import lombok.AllArgsConstructor;
+import lombok.EqualsAndHashCode;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+import lombok.ToString;
+
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
+@ToString
+@EqualsAndHashCode
 public class StopCreationDTO {
 	@NotEmpty(message = "First name is required")
 	private String name;
