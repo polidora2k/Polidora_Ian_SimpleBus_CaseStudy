@@ -20,6 +20,7 @@ The site is broken down into 3 different use cases: Administrator, Parent, and D
 - Administrators
     - Create new routes and stops
     - Reset all routes for the next day
+    - Add new stops to an existing route
 
 - Parent
     - View their students individual route status

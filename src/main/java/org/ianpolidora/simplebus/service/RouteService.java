@@ -2,6 +2,7 @@ package org.ianpolidora.simplebus.service;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 import org.ianpolidora.simplebus.database.dao.RouteDAO;
 import org.ianpolidora.simplebus.database.entity.Route;
@@ -87,5 +88,11 @@ public class RouteService {
 		}
 		
 		return true;
+	}
+	
+	public List<RouteDTO> getAllRoutes(){
+		List<Route> routes = routeDAO.findAll();
+		
+		return routes.stream().map(r -> routeMapper.toRouteDTO(r)).collect(Collectors.toList());
 	}
 }

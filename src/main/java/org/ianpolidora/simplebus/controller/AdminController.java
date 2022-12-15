@@ -79,6 +79,15 @@ public class AdminController {
 		return response;
 	}
 	
+	@GetMapping("/admin/editroutes")
+	public ModelAndView showEditRoutesPage() {
+		ModelAndView response = new ModelAndView();
+		response.setViewName("edit_routes");
+		response.addObject("routes", routeService.getAllRoutes());
+		
+		return response;
+	}
+	
 	@PostMapping("/admin/addroute/{id}/addstops")
 	public ModelAndView addStop(@Valid StopCreationDTO stopCreationDTO, BindingResult result, @PathVariable Integer id) {
 		ModelAndView response = new ModelAndView();

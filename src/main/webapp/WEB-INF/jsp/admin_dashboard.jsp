@@ -22,6 +22,7 @@
                                     <p class="card-text">Manage route information and status for your account.</p>
                                     <a href="/admin/addroute" class="btn btn-warning">Add New Route</a>
                                     <a href="/admin/resetroutes" class="btn btn-warning">Reset Routes</a>
+                                    <a href="/admin/editroutes" class="btn btn-warning">Edit Routes</a>
                                 </div>
                             </div>
                         </div>
