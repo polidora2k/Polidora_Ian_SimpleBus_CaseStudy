@@ -35,42 +35,44 @@ The site is broken down into 3 different use cases: Administrator, Parent, and D
 Welcome Page
 ![Alt text](src/main/webapp/pub/images/welcome-page.png "welcome")
 
+Login Page
+![Alt text](src/main/webapp/pub/images/login-page.png "login")
 
-## Built With
+Sign Up Page
+![Alt text](src/main/webapp/pub/images/signup-page.png "sign up")
 
-  - [Contributor Covenant](https://www.contributor-covenant.org/) - Used
-    for the Code of Conduct
-  - [Creative Commons](https://creativecommons.org/) - Used to choose
-    the license
+Parent Dashboard
+![Alt text](src/main/webapp/pub/images/parent-dashboard.png "parent")
 
-## Contributing
+Student Overview Page
+![Alt text](src/main/webapp/pub/images/student-overview.png "student overview")
 
-Please read [CONTRIBUTING.md](CONTRIBUTING.md) for details on our code
-of conduct, and the process for submitting pull requests to us.
+Add Student Page
+![Alt text](src/main/webapp/pub/images/add-student.png "add student")
 
-## Versioning
+Driver Dashboard
+![Alt text](src/main/webapp/pub/images/driver-dashboard.png "driver")
 
-We use [Semantic Versioning](http://semver.org/) for versioning. For the versions
-available, see the [tags on this
-repository](https://github.com/PurpleBooth/a-good-readme-template/tags).
+Route Overview Page
+![Alt text](src/main/webapp/pub/images/route-overview-page.png "route overview")
 
-## Authors
+Route Onboarding Page
+![Alt text](src/main/webapp/pub/images/route-onboarding.png "onboarding")
 
-  - **Billie Thompson** - *Provided README Template* -
-    [PurpleBooth](https://github.com/PurpleBooth)
+Route In Progess Page
+![Alt text](src/main/webapp/pub/images/route-in-progress-page.png "route in progress")
 
-See also the list of
-[contributors](https://github.com/PurpleBooth/a-good-readme-template/contributors)
-who participated in this project.
+Admin Dashboard
+![Alt text](src/main/webapp/pub/images/admin-dashboard.png "admin")
 
-## License
+New Route Page
+![Alt text](src/main/webapp/pub/images/new-route-page.png "New Route")
 
-This project is licensed under the [CC0 1.0 Universal](LICENSE.md)
-Creative Commons License - see the [LICENSE.md](LICENSE.md) file for
-details
+New Stop Page
+![Alt text](src/main/webapp/pub/images/new-stop-page.png "New Stop")
 
-## Acknowledgments
+## Improvements
 
-  - Hat tip to anyone whose code is used
-  - Inspiration
-  - etc
+  - Improve location tracking and mapping
+  - Clean up code and web page design
+  - Add aditional automations and locks to features
