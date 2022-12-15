@@ -6,6 +6,10 @@
         <jsp:include page="include/header.jsp" />
         <link rel="stylesheet" href="/styles/student.css" type="text/css" />
 
+        <script>
+            
+        </script>
+
         <body style="font-family: FredokaOne; background-color: #EFF3F3;">
             <div class="d-flex vh-100 flex-column">
                 <!-- NAVIGATION BAR -->
@@ -23,7 +27,9 @@
                     <div class="row mt-3">
                         <div class="col-4 p-4 ps-5">
                             <h5>Students:</h5>
-                            <p class="text-danger" style="font-size: 9pt; font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;">Ensure that all students are present and aboard the bus before starting your route.</p>
+                            <p class="text-danger"
+                                style="font-size: 9pt; font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;">
+                                Ensure that all students are present and aboard the bus before starting your route.</p>
                             <div class="overflow-auto border rounded" style="height: 400px; background-color: #EFF3F3;">
                                 <c:if test="${empty students}">
                                     <div class="text-center w-100 h-100">
@@ -44,7 +50,7 @@
                                     </ul>
                                 </c:if>
                             </div>
-                            <a href="/driver/route/${route.id}/stop/${nextStop.id}/" class="btn btn-warning mt-2 w-100 disabled" id="nextStop">Next Stop</a>
+                            <button id="depart" class="btn btn-warning mt-2 w-100 disabled" value="/driver/route/${route.id}/stop/${nextStop.id}">Depart</button>
                         </div>
                     </div>
                 </div>
@@ -52,7 +58,7 @@
         </body>
 
         <script>
-            var button = document.getElementById('nextStop');
+            var button = document.getElementById('depart');
             var checkboxes = document.querySelectorAll('input[type=checkbox]');
 
             checkboxes.forEach(function (checkbox) {
@@ -71,6 +77,24 @@
                     }
                 });
             });
+
+            $(document).ready(function() {
+                $("#depart").click(function() {
+                    $.ajax({
+                        url: "/startroute",
+                        data: {
+                            routeId: "${route.id}"
+                        },
+                        success: function(result) {
+                            console.log(result);
+                            window.location = $("#depart").val();
+                        },
+                        error: function(result) {
+                            console.log(result.status);
+                        }
+                    });
+                });
+            });
         </script>
 
-        </html>
+<jsp:include page="include/footer.jsp" />

@@ -18,4 +18,6 @@ public interface StudentDAO extends JpaRepository<Student, Integer> {
 	public List<Student> findByStopIdAndRiding(Integer stopId, Boolean riding);
 	
 	public Integer countByStopIdAndRiding(Integer stopId, Boolean riding);
+	
+	public void deleteById(Integer id);
 }

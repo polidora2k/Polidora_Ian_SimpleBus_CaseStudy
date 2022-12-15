@@ -84,4 +84,4 @@
         </body>
 
 
-        </html>
+        <jsp:include page="include/footer.jsp" />

@@ -7,49 +7,41 @@
         <link rel="stylesheet" href="/styles/student.css" type="text/css" />
 
         <script>
-            function completeStop(stopId, routeId, nextStopId) {
-                $(document).ready(
-                    function () {
-                        $.ajax({
-                            url: "/completestop",
-                            data: {
-                                stopId: stopId,
-                                routeId: routeId,
-                                nextStopId: nextStopId
-                            },
-                            success: function (data) {
-                                console.log("server responded success with ");
-                                console.log(data);
-                            },
-                            error: function (data) {
-                                console.log("AJAX Call failed ");
-                                console.log(data);
-                            }
-                        });
-                    }
-                );
-            }
-
-            function completeRoute(routeId) {
-                $(document).ready(
-                    function () {
-                        $.ajax({
-                            url: "/completeroute",
-                            data: {
-                                routeId: routeId
-                            },
-                            success: function (data) {
-                                console.log("server responded success with ");
-                                console.log(data);
-                            },
-                            error: function (data) {
-                                console.log("AJAX Call failed ");
-                                console.log(data);
-                            }
-                        });
-                    }
-                );
-            }
+            $(document).ready(function() {
+                $("#finish").click(function() {
+                    $.ajax({
+                        url: "/completeroute",
+                        data: {
+                            routeId: "${route.id}"
+                        },
+                        success: function(result) {
+                            console.log(result);
+                            window.location = $("#finish").val();
+                        },
+                        error: function(result) {
+                            console.log(result.status);
+                        }
+                    });
+                });
+            });
+            $(document).ready(function() {
+                $("#nextStop").click(function() {
+                    $.ajax({
+                        url: "/completestop",
+                        data: {
+                            stopId: "${currentStop.id}",
+                            routeId: "${route.id}"
+                        },
+                        success: function(result) {
+                            console.log(result);
+                            window.location = $("#nextStop").val();
+                        },
+                        error: function(result) {
+                            console.log(result.status);
+                        }
+                    });
+                });
+            });
         </script>
 
         <body style="font-family: FredokaOne; background-color: #EFF3F3;">
@@ -93,12 +85,14 @@
                                 </c:if>
                             </div>
                             <c:if test="${nextStop == null}">
-                                <a href="/driver" class="btn btn-warning mt-2 w-100 disabled" id="nextStop" onclick="completeRoute(${route.id})">Finish
+                                <button id="finish" class="btn btn-warning mt-2 w-100 disabled" value="/driver">Finish Route</button>
+                                <a href="/driver" class="btn btn-warning mt-2 w-100 disabled" id="finish1" hidden>Finish
                                     Route</a>
                             </c:if>
                             <c:if test="${nextStop != null}">
+                                <button id="nextStop" class="btn btn-warning mt-2 w-100 disabled" value="/driver/route/${route.id}/stop/${nextStop.id}">Next Stop</button>
                                 <a href="/driver/route/${route.id}/stop/${nextStop.id}"
-                                    class="btn btn-warning mt-2 w-100 disabled" id="nextStop" onclick="completeStop(${currentStop.id}, ${route.id}, ${nextStop.id})">Next Stop</a>
+                                    class="btn btn-warning mt-2 w-100 disabled" id="nextStop1" hidden>Next Stop</a>
                             </c:if>
 
                         </div>
@@ -108,47 +102,46 @@
         </body>
 
         <script>
-            var nextButton = document.getElementById('nextStop');
-            var checkboxes = document.querySelectorAll('input[type=checkbox]');
+            let nextButton = document.getElementById('nextStop');
+            let finishButton = document.getElementById('finish');
+            let checkboxes = document.querySelectorAll('input[type=checkbox]');
 
-            checkboxes.forEach(function (checkbox) {
-                checkbox.addEventListener('click', function () {
-                    var allChecked = true;
-                    checkboxes.forEach(function (checkbox) {
-                        if (!checkbox.checked) {
-                            allChecked = false;
-                        }
-                    });
-
-                    if (allChecked) {
-                        nextButton.classList.remove('disabled');
-                    } else {
-                        nextButton.classList.add('disabled');
-                    }
-                });
-            });
-
-            $(document).ready(
-                function () {
-                    $("input[type=checkbox]").change(function () {
-                        $.ajax({
-                            url: "/changeriding",
-                            data: {
-                                id: $("#studentId").val(),
-                                riding: $(this).prop("checked")
-                            },
-                            success: function (data) {
-                                console.log("server responded success with ");
-                                console.log(data);
-                            },
-                            error: function (data) {
-                                console.log("AJAX Call failed ");
-                                console.log(data);
+            if (finishButton == null) {
+                checkboxes.forEach(function (checkbox) {
+                    checkbox.addEventListener('click', function () {
+                        var allChecked = true;
+                        checkboxes.forEach(function (checkbox) {
+                            if (!checkbox.checked) {
+                                allChecked = false;
                             }
                         });
+
+                        if (allChecked) {
+                            nextButton.classList.remove('disabled');
+                        } else {
+                            nextButton.classList.add('disabled');
+                        }
                     });
-                }
-            );
+                });
+            } else if (nextButton == null) {
+                checkboxes.forEach(function (checkbox) {
+                    checkbox.addEventListener('click', function () {
+                        var allChecked = true;
+                        checkboxes.forEach(function (checkbox) {
+                            if (!checkbox.checked) {
+                                allChecked = false;
+                            }
+                        });
+
+                        if (allChecked) {
+                            finishButton.classList.remove('disabled');
+                        } else {
+                            finishButton.classList.remove('disabled');
+                        }
+                    });
+                });
+            }
+
         </script>
 
-        </html>
+<jsp:include page="include/footer.jsp" />

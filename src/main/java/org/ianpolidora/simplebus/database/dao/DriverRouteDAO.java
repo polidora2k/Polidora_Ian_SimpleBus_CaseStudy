@@ -1,6 +1,7 @@
 package org.ianpolidora.simplebus.database.dao;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.ianpolidora.simplebus.database.entity.DriverRoute;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -11,6 +12,8 @@ import org.springframework.stereotype.Repository;
 public interface DriverRouteDAO extends JpaRepository<DriverRoute, Integer>{
 	List<DriverRoute> findByUserId(Integer userId);
 	
-	@Query("select dr from DriverRoute dr join Route r on r.id = dr.routeId where dr.userId = :driverId and r.status != 'Completed'")
-	List<DriverRoute> findInCompleteRoutesByDriver(Integer driverId);
+	@Query(value = "select dr.id, dr.user_id, dr.route_id from driver_routes dr join routes r on r.id = dr.route_id where dr.user_id = :driverId and r.status != 'Completed'", nativeQuery = true)
+	List<DriverRoute> findIncompleteRoutesByDriver(Integer driverId);
+	
+	Optional<DriverRoute> findByRouteId(Integer routeId);
 }

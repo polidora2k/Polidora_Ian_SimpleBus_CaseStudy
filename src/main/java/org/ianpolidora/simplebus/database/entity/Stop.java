@@ -29,6 +29,7 @@ public class Stop {
 	private Integer id;
 	
 	@Column(name = "name", unique = true)
+	@EqualsAndHashCode.Include
 	private String name;
 	
 	@Column(name = "street_address")

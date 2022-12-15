@@ -12,7 +12,7 @@
                     <div class="row m-1 fs-1">
                         <p> Welcome <span class="text-warning">${user.firstName}</span>! </p>
                     </div>
-                    <div class="row">
+                    <div class="row m-2">
                         <div class="col">
                             <div class="card text-center">
                                 <div class="card-header">
@@ -21,7 +21,7 @@
                                 <div class="card-body">
                                     <p class="card-text">Manage route information and status for your account.</p>
                                     <a href="/admin/addroute" class="btn btn-warning">Add New Route</a>
-                                    <a href="/admin/routes" class="btn btn-warning">View Routes</a>
+                                    <a href="/admin/resetroutes" class="btn btn-warning">Reset Routes</a>
                                 </div>
                             </div>
                         </div>
@@ -29,6 +29,26 @@
                 </div>
 
             </div>
+
+            <div class="toast-container position-fixed bottom-0 end-0 p-3">
+                <div id="resetToast" class="toast" role="alert" aria-live="assertive" aria-atomic="true">
+                  <div class="toast-header">
+                    <strong class="me-auto">Reset Routes</strong>
+                    <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+                  </div>
+                  <div class="toast-body">
+                    All routes and stops have been reset
+                  </div>
+                </div>
+              </div>
+              
         </body>
 
-        </html>
+        <script>
+            if (${success}){
+                const toast = new bootstrap.Toast(document.getElementById('resetToast'));
+                toast.show();
+            }
+        </script>
+
+<jsp:include page="include/footer.jsp" />

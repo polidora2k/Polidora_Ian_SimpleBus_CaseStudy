@@ -7,6 +7,7 @@ import java.util.stream.Collectors;
 
 import org.ianpolidora.simplebus.database.dao.StopDAO;
 import org.ianpolidora.simplebus.database.dao.StudentDAO;
+import org.ianpolidora.simplebus.database.entity.Route;
 import org.ianpolidora.simplebus.database.entity.Stop;
 import org.ianpolidora.simplebus.dto.StopCreationDTO;
 import org.ianpolidora.simplebus.dto.StopDTO;
@@ -79,8 +80,11 @@ public class StopService {
 		return stops.stream().map(s -> stopMapper.toStopDTO(s)).collect(Collectors.toList());
 	}
 
-	public StopDTO addStop(StopCreationDTO stopCreationDTO) {
+	public StopDTO addStop(StopCreationDTO stopCreationDTO, Integer routeId) {
 		Stop newStop = stopMapper.toStop(stopCreationDTO);
+		
+		newStop.setStatus("Incomplete");
+		newStop.setRouteId(routeId);
 
 		stopDAO.save(newStop);
 
@@ -106,6 +110,15 @@ public class StopService {
 		if (stop.isPresent()) {
 			Stop s = stop.get();
 			s.setStatus("Completed");
+			stopDAO.save(s);
+		}
+	}
+	
+	public void resetStopsForRoute(Integer routeId) {
+		List<Stop> stops = stopDAO.findByRouteId(routeId);
+		
+		for (Stop s : stops) {
+			s.setStatus("Incomplete");
 			stopDAO.save(s);
 		}
 	}

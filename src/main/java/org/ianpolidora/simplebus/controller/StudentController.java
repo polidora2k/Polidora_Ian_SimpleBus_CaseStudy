@@ -3,10 +3,12 @@ package org.ianpolidora.simplebus.controller;
 import org.ianpolidora.simplebus.dto.RouteDTO;
 import org.ianpolidora.simplebus.dto.StopDTO;
 import org.ianpolidora.simplebus.dto.StudentDTO;
+import org.ianpolidora.simplebus.service.DriverService;
 import org.ianpolidora.simplebus.service.RouteService;
 import org.ianpolidora.simplebus.service.StopService;
 import org.ianpolidora.simplebus.service.StudentService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -29,6 +31,10 @@ public class StudentController {
 	@Autowired
 	RouteService routeService;
 	
+	@Autowired
+	DriverService driverService;
+	
+	@PreAuthorize("hasAuthority('PARENT')")
 	@GetMapping("/parent/student/{id}")
 	public ModelAndView getStudent(@PathVariable Integer id) {
 		ModelAndView response = new ModelAndView();
@@ -44,13 +50,14 @@ public class StudentController {
 		response.addObject("route", route);
 		response.addObject("stop", stop);
 		response.addObject("status", studentService.getStudentStatus(sd));
+		response.addObject("driver", driverService.getDriverForRoute(route.getId()));
 		
 		return response;
 	}
 	
 	@ResponseBody
 	@GetMapping("/changeriding")
-	public void ajaxCall(@RequestParam Integer id, @RequestParam Boolean riding) {
+	public void changeRiding(@RequestParam Integer id, @RequestParam Boolean riding) {
 		studentService.changeRiding(id, riding);
 	}
 }

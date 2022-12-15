@@ -19,5 +19,5 @@ public class RouteDTO {
 	private Integer id;
 	private String name;
 	private String status;
-	private Integer currentStopId;
+	private Integer lastCompletedStopId;
 }

@@ -1,7 +1,5 @@
 package org.ianpolidora.simplebus.controller;
 
-import java.io.IOException;
-
 import javax.validation.Valid;
 
 import org.ianpolidora.simplebus.dto.StudentCreationDTO;
@@ -9,6 +7,7 @@ import org.ianpolidora.simplebus.dto.UserDTO;
 import org.ianpolidora.simplebus.security.AuthenticatedUserService;
 import org.ianpolidora.simplebus.service.ParentService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
@@ -17,17 +16,11 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
-import com.google.maps.GeoApiContext;
-import com.google.maps.GeocodingApi;
-import com.google.maps.errors.ApiException;
-import com.google.maps.model.GeocodingResult;
-
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
 @Controller
+@PreAuthorize("hasAuthority('PARENT')")
 public class ParentController {
 
 	@Autowired

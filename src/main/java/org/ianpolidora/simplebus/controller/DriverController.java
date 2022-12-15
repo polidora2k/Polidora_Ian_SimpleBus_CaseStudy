@@ -11,9 +11,11 @@ import org.ianpolidora.simplebus.service.RouteService;
 import org.ianpolidora.simplebus.service.StopService;
 import org.ianpolidora.simplebus.service.StudentService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
@@ -22,6 +24,7 @@ import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
 @Controller
+@PreAuthorize("hasAuthority('DRIVER')")
 public class DriverController {
 
 	@Autowired
@@ -104,14 +107,23 @@ public class DriverController {
 	
 	@ResponseBody
 	@GetMapping("/completestop")
-	public void completeStop(@RequestParam Integer stopId, @RequestParam Integer routeId, @RequestParam Integer nextStopId) {
+	public void completeStop(@RequestParam Integer stopId, @RequestParam Integer routeId) {
 		stopService.completeStop(stopId);
-		routeService.advanceStop(routeId, nextStopId);
+		routeService.advanceStop(routeId, stopId);
 	}
 	
 	@ResponseBody
 	@GetMapping("/completeroute")
 	public void completeRoute(@RequestParam Integer routeId) {
 		routeService.completeRoute(routeId);
+	}
+	
+	@ResponseBody
+	@GetMapping("/startroute")
+	public String startRoute(@RequestParam Integer routeId) {
+		log.debug("Start Route method reached");
+		routeService.startRoute(routeId);
+		
+		return "Successfully started";
 	}
 }

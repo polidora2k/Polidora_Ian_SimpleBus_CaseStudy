@@ -12,9 +12,15 @@
       <div class="collapse navbar-collapse" id="navbarCollapse">
         <sec:authorize access="isAuthenticated()">
           <div class="navbar-nav">
-            <a href="/driver" class="nav-item nav-link">Dashboard</a>
-            <a href="/students" class="nav-item nav-link">Students</a>
-            <a href="#" class="nav-item nav-link disabled" tabindex="-1">Reports</a>
+            <sec:authorize access="hasAuthority('PARENT')">
+              <a href="/parent" class="nav-item nav-link">Dashboard</a>
+            </sec:authorize>
+            <sec:authorize access="hasAuthority('DRIVER')">
+              <a href="/driver" class="nav-item nav-link">Dashboard</a>
+            </sec:authorize>
+            <sec:authorize access="hasAuthority('ADMIN')">
+              <a href="/admin" class="nav-item nav-link">Dashboard</a>
+            </sec:authorize>
           </div>
         </sec:authorize>
         <div class="navbar-nav ms-auto">

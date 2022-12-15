@@ -29,40 +29,6 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="row mt-3">
-                                <div class="col ">
-                                    <div class="row">
-                                        <div class="col">
-                                            <label for="stops" class="form-label">Included Stops</label>
-                                        </div>
-                                        <div class="col text-end">
-                                            <button type="button" class="btn btn-warning mb-2" data-bs-toggle="modal" data-bs-target="#addStopModal" style="font-size: 10pt;">
-                                                + Add Stop
-                                              </button>
-                                              <jsp:include page="include/add_stop.jsp"/>
-                                        </div>
-                                    </div>
-                                    <div class="overflow-auto border bg-white rounded" style="height: 200px;">
-                                        <c:if test="${empty unassignedStops}">
-                                            <div class="text-center w-100 h-100">
-                                                <span class=" align-middle text-muted">No unassigned stops</span>
-                                            </div>
-                                        </c:if>
-                                        <c:if test="${not empty unassignedStops}">
-                                            <ul class="list-group">
-                                                <c:forEach items="${unassignedStops}" var="stop">
-                                                    <li class="list-group-item bg-light">
-                                                        <input class="form-check-input me-1" type="checkbox"
-                                                            value="${stop.id}" id="stop${stop.id}">
-                                                        <label class="form-check-label stretched-link"
-                                                            for="stop${stop.id}">${stop.name}</label>
-                                                    </li>
-                                                </c:forEach>
-                                            </ul>
-                                        </c:if>
-                                    </div>
-                                </div>
-                            </div>
                             <div class="row">
                                 <div class="col-12 my-4 text-center">
                                     <button type="submit" class="btn btn-warning px-4">Add</button>
@@ -74,4 +40,4 @@
             </div>
         </body>
 
-        </html>
+        <jsp:include page="include/footer.jsp" />

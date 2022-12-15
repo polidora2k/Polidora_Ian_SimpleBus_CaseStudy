@@ -49,22 +49,37 @@ public class StudentService {
 		StopDTO stop = stopService.getStop(student.getStopId());
 		RouteDTO route = routeService.getRoute(stop.getRouteId());
 
-		List<StopDTO> stops = stopService.getRouteStopsWithStudents(route.getId());
-		List<StopDTO> studentStops = stops.subList(0, stops.indexOf(stop) + 1);
-		StopDTO currentStop = stopService.getStop(route.getCurrentStopId());
-		status.setCurrentStop(currentStop);
-
-		if (stop.getId() == route.getCurrentStopId() || !studentStops.contains(currentStop)) {
-			status.setArrived(true);
-		} else {
+		if (route.getStatus().equals("Not Departed")) {
+			status.setPreviousStop(null);
 			status.setArrived(false);
+			status.setRouteInProgress(false);
+			status.setPercent(0);
+		} else if ((route.getStatus().equals("In Progress")) && (route.getLastCompletedStopId() == null)) {
+			status.setPreviousStop(null);
+			status.setArrived(false);
+			status.setRouteInProgress(true);
+			status.setPercent(0);
+		} else if ((route.getStatus().equals("In Progress")) && (route.getLastCompletedStopId() != null)) {
+			List<StopDTO> stops = stopService.getRouteStopsWithStudents(route.getId());
+			List<StopDTO> studentStops = stops.subList(0, stops.indexOf(stop) + 1);
+			StopDTO previousStop = stopService.getStop(route.getLastCompletedStopId());
+			status.setPreviousStop(previousStop);
+			status.setRouteInProgress(true);
+			
+			if (stop.getId() == route.getLastCompletedStopId() || !studentStops.contains(previousStop)) {
+				status.setArrived(true);
+			} else {
+				status.setArrived(false);
+				
+				Integer segment = 100 / studentStops.size();
+				
+				Integer previous = studentStops.indexOf(previousStop) + 1;
+		
+				status.setPercent((segment) * (previous));
+			}
+		} else if (route.getStatus().equals("Completed")) {
+			status.setArrived(true);
 		}
-
-		Integer segment = 100 / studentStops.size();
-
-		Integer current = studentStops.indexOf(currentStop) + 1;
-
-		status.setPercent((segment) * (current));
 
 		return status;
 	}
@@ -81,7 +96,7 @@ public class StudentService {
 
 	public List<StudentDTO> getStudentsByStop(StopDTO stop) {
 		List<Student> students = studentDAO.findByStopIdAndRiding(stop.getId(), true);
-		
+
 		return students.stream().map(s -> studentMapper.toStudentDTO(s)).collect(Collectors.toList());
 	}
 
@@ -92,7 +107,7 @@ public class StudentService {
 		for (StopDTO s : stops) {
 			students.addAll(getStudentsByStop(s));
 		}
-		
+
 		return students;
 	}
 }

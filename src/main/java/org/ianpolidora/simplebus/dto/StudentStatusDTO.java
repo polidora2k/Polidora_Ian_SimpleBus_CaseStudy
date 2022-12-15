@@ -12,7 +12,8 @@ import lombok.ToString;
 @ToString
 @EqualsAndHashCode
 public class StudentStatusDTO {
-	private StopDTO currentStop;
+	private StopDTO previousStop;
 	private Boolean arrived;
 	private Integer percent;
+	private Boolean routeInProgress;
 }

@@ -38,47 +38,84 @@
                             </div>
                         </div>
                     </div>
-                    <div class="row mt-3">
-                        <div class="col text-center">
-                            <c:if test="${status.arrived}">
-                                <h2 class="text-success">${student.firstName} is Home!</h2>
-                            </c:if>
-                            <c:if test="${not status.arrived}">
-                                <div class="row">
-                                    <div class="col">
-                                        <h2 class="text-warning">Last Stop Passed:</h2>
-                                    </div>
-                                </div>
-                                <div class="row">
-                                    <div class="col stop-info">
-                                        ${status.currentStop.name}
-                                    </div>
-                                </div>
-                                <div class="row">
-                                    <div class="col stop-info">
-                                        ${status.currentStop.streetAddress}
-                                    </div>
-                                </div>
-                                <div class="row">
-                                    <div class="col stop-info">
-                                        ${status.currentStop.city}, ${status.currentStop.state} ${status.currentStop.zipcode}
-                                    </div>
-                                </div>
-                            </c:if>
+                    <div class="row mt-3 ms-4">
+                        <div class="col">
+                            <h5>Status:</h5>
                         </div>
                     </div>
-                    <div class="progress w-100 my-4" style=>
-                        <c:if test="${status.arrived}">
-                            <div class="progress-bar bg-success progress-bar-striped" role="progressbar"
+                    <c:if test="${student.riding}">
+                        <div class="row mt-2">
+                            <div class="col text-center">
+                              <c:if test="${status.arrived}">
+                                <h2 class="text-success">
+                                  ${student.firstName} is Home!</h2>
+                              </c:if>
+                              <c:if test="${not status.arrived}">
+                                <c:if test="${not status.routeInProgress}">
+                                  <div class="row">
+                                    <div class="col">
+                                      <h2 class="text-secondary">Bus has not departed</h2>
+                                    </div>
+                                  </div>
+                                </c:if>
+                                <c:if test="${status.routeInProgress and status.previousStop == null}">
+                                  <div class="row">
+                                    <div class="col">
+                                      <h2 class="text-secondary">Bus has departed...</h2>
+                                    </div>
+                                  </div>
+                                </c:if>
+                                <c:if test="${status.routeInProgress and status.previousStop != null}">
+                                  <div class="row">
+                                    <div class="col">
+                                      <h2 class="text-warning">Last Stop Passed:</h2>
+                                    </div>
+                                  </div>
+                                  <div class="row">
+                                    <div class="col stop-info">
+                                      ${status.previousStop.name}
+                                    </div>
+                                  </div>
+                                  <div class="row">
+                                    <div class="col stop-info">
+                                      ${status.previousStop.streetAddress}
+                                    </div>
+                                  </div>
+                                  <div class="row">
+                                    <div class="col stop-info">
+                                      ${status.previousStop.city},
+                                      ${status.previousStop.state}
+                                      ${status.previousStop.zipcode}
+                                    </div>
+                                  </div>
+                                </c:if>
+                              </c:if>
+                            </div>
+                          </div>
+
+                          <div class="progress w-100 my-4">
+                            <c:if test="${status.arrived}">
+                              <div class="progress-bar bg-success progress-bar-striped" role="progressbar"
                                 aria-label="routeStatus" style="width: 100%" aria-valuenow="100" aria-valuemin="0"
                                 aria-valuemax="100"></div>
-                        </c:if>
-                        <c:if test="${not status.arrived}">
-                            <div class="progress-bar bg-warning progress-bar-striped progress-bar-animated"
-                                role="progressbar" aria-label="routeStatus" style="width: ${status.percent}%;"
-                                aria-valuemin="0" aria-valuemax="100"></div>
-                        </c:if>
-                    </div>
+                            </c:if>
+                            <c:if test="${not status.arrived}">
+                              <div class="progress-bar bg-warning progress-bar-striped progress-bar-animated"
+                                role="progressbar" aria-label="routeStatus"
+                                style="width: ${status.percent}%;"
+                                aria-valuenow="status.percent" aria-valuemin="0"
+                                aria-valuemax="100"></div>
+                            </c:if>
+                          </div>
+                    </c:if>
+                    <c:if test="${not student.riding}">
+                        <div class="row mt-2">
+                            <div class="col text-center">
+                                <h2 class="text-secondary">
+                                    ${student.firstName} is not riding today!</h2>
+                            </div>
+                        </div>
+                    </c:if>
                     <div class="row">
                         <div class="col p-4 ps-5">
                             <div class="row">
@@ -115,7 +152,7 @@
                                 </div>
                                 <div class="col">
                                     <div class="row">
-                                        <div class="col stop-info">
+                                        <div class="col">
                                             ${driver.firstName} ${driver.lastName}
                                         </div>
                                     </div>
@@ -129,4 +166,4 @@
         </body>
 
 
-        </html>
+        <jsp:include page="include/footer.jsp" />
